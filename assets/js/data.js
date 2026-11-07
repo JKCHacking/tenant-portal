@@ -71,6 +71,20 @@ export function validateTenantData(data) {
     }
   }
 
+  if (data.securityDeposit !== undefined) {
+    const deposit = data.securityDeposit;
+    if (!isObj(deposit)) {
+      errors.push("'securityDeposit' must be an object when present.");
+    } else {
+      const id = deposit.id === undefined ? "SECURITY-DEPOSIT" : deposit.id;
+      addId(id, "securityDeposit");
+      if (typeof deposit.amountDue !== "number" || deposit.amountDue < 0) {
+        errors.push("securityDeposit.amountDue must be a number.");
+      }
+      if (!isISODate(deposit.dueDate)) errors.push("securityDeposit.dueDate must be YYYY-MM-DD.");
+    }
+  }
+
   for (const [i, b] of data.utilityBills.entries()) {
     const label = `utilityBills[${i}]`;
     addId(b.id, label);

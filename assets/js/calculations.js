@@ -39,6 +39,16 @@ export function buildUtilityCharges(bills = []) {
   return bills.map((b) => ({ ...b, kind: "utility" }));
 }
 
+export function buildSecurityDepositCharge(deposit) {
+  if (!deposit) return null;
+  return {
+    ...deposit,
+    id: deposit.id === undefined ? "SECURITY-DEPOSIT" : deposit.id,
+    kind: "security-deposit",
+    type: "security-deposit",
+  };
+}
+
 /** All payments that allocate money to a charge, oldest first. */
 export function paymentsFor(chargeId, payments) {
   return payments

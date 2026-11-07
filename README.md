@@ -44,6 +44,7 @@ Charges and payments are separate. Balances and statuses are always derived, nev
 - `profile` — tenant, unit, lease dates, `contractMonths`, `monthlyRent`, `rentDueDay`.
 - **Rent charges are generated** from the profile: one per contract month, ID `RENT-YYYY-MM`, due on `rentDueDay`. To change one month's amount or due date, add an override to `rentCharges`:
   `{ "period": "2026-03", "amountDue": 10000, "dueDate": "2026-03-10" }`
+- `securityDeposit` — optional charge: `{ "id": "SECURITY-DEPOSIT", "amountDue": 24000, "dueDate": "2026-11-07" }`. If omitted, `id` defaults to `SECURITY-DEPOSIT`. Its paid amount, balance, status and payment date are derived from payment allocations, just like rent and utility bills.
 - `utilityBills` — charges: `{ "id": "WATER-2026-10", "type": "water", "period": "2026-10", "amountDue": 468.25, "dueDate": "2026-11-20" }`. `type` is `electricity`, `water` or `internet`.
 - `payments` — each references the charge(s) it covers:
 
@@ -56,7 +57,7 @@ Charges and payments are separate. Balances and statuses are always derived, nev
         "receipt": "receipts/rent/RENT-2026-10-001.png"
       }
 
-  Use `"receipt": null` when there is none. A payment may be partial, or cover several charges (list several allocations). Payment IDs must be unique.
+  Use `"receipt": null` when there is none. A payment may be partial, or cover several charges (list several allocations), including rent and the security deposit together. Payment IDs must be unique.
 
 ### Status rules
 
@@ -72,7 +73,7 @@ Charges and payments are separate. Balances and statuses are always derived, nev
     assets/css            main, login, dashboard styles
     assets/js             auth, data, calculations, utils, dashboard
     data/tenant.json      mock data
-    receipts/             rent/ and utilities/{electricity,water,internet}/
+    receipts/             rent/, security-deposit/ and utilities/{electricity,water,internet}/
     tools/                credential generator and tests (not needed in production)
 
 ## Future improvements

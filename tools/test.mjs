@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
-  buildRentCharges, buildUtilityCharges, summarizeCharges, summarizeCharge,
+  buildRentCharges, buildUtilityCharges, buildSecurityDepositCharge, summarizeCharges, summarizeCharge,
   rentProgress, determineStatus, amountPaid, overdueAmount, STATUS,
 } from "../assets/js/calculations.js";
 import { validateTenantData } from "../assets/js/data.js";
@@ -81,20 +81,87 @@ await test("receipts attach to the charge via its payments", () => {
   const s = summarizeCharge(buildRentCharges(profile)[0], payments, "2026-02-01");
   assert.deepEqual(s.receipts, [{ paymentId: "R1", path: "receipts/rent/R1.jpg", date: "2026-01-03" }]);
 });
+await test("unpaid deposit is pending or overdue based on its due date", () => {
+  const charge = buildSecurityDepositCharge({ amountDue: 24000, dueDate: "2026-01-01" });
+  assert.equal(charge.id, "SECURITY-DEPOSIT");
+  assert.equal(summarizeCharge(charge, [], "2025-12-31").status, STATUS.PENDING);
+  const summary = summarizeCharge(charge, [], "2026-01-02");
+  assert.equal(summary.status, STATUS.OVERDUE);
+  assert.equal(summary.outstanding, 24000);
+  assert.equal(summary.paymentDate, null);
+});
+await test("partially paid deposit derives balance, status and last payment date", () => {
+  const charge = buildSecurityDepositCharge({ id: "SECURITY-DEPOSIT", amountDue: 24000, dueDate: "2026-01-01" });
+  const payments = [pay("D1", "2026-01-01", 10000, charge.id)];
+  const summary = summarizeCharge(charge, payments, "2026-01-02");
+  assert.equal(summary.status, STATUS.PARTIAL);
+  assert.equal(summary.amountPaid, 10000);
+  assert.equal(summary.outstanding, 14000);
+  assert.equal(summary.paymentDate, "2026-01-01");
+});
+await test("fully paid deposit and its receipt use the existing charge summary", () => {
+  const charge = buildSecurityDepositCharge({ amountDue: 24000, dueDate: "2026-01-01" });
+  const payments = [pay("D1", "2026-01-01", 24000, charge.id, { receipt: "receipts/security-deposit/D1.jpg" })];
+  const summary = summarizeCharge(charge, payments, "2026-01-02");
+  assert.equal(summary.status, STATUS.PAID);
+  assert.equal(summary.amountPaid, 24000);
+  assert.equal(summary.outstanding, 0);
+  assert.deepEqual(summary.receipts, [{ paymentId: "D1", path: "receipts/security-deposit/D1.jpg", date: "2026-01-01" }]);
+});
+await test("one payment can cover advance rent and the security deposit", () => {
+  const deposit = buildSecurityDepositCharge({ amountDue: 24000, dueDate: "2026-01-01" });
+  const payment = {
+    id: "MOVE-IN", date: "2025-12-20", amount: 36000,
+    allocations: [
+      { chargeId: "RENT-2026-01", amount: 12000 },
+      { chargeId: deposit.id, amount: 24000 },
+    ],
+  };
+  const rent = summarizeCharge(buildRentCharges(profile)[0], [payment], "2026-01-02");
+  const secured = summarizeCharge(deposit, [payment], "2026-01-02");
+  assert.equal(rent.status, STATUS.PAID);
+  assert.equal(secured.status, STATUS.PAID);
+});
+await test("deposit-only payments do not affect rent progress or overdue rent", () => {
+  const rent = summarizeCharges(buildRentCharges(profile), [], "2026-02-01");
+  const deposit = buildSecurityDepositCharge({ amountDue: 24000, dueDate: "2026-01-01" });
+  const depositPayment = pay("D1", "2026-01-01", 24000, deposit.id);
+  const rentWithDepositPayment = summarizeCharges(buildRentCharges(profile), [depositPayment], "2026-02-01");
+  assert.deepEqual(rentProgress(rentWithDepositPayment, 12), rentProgress(rent, 12));
+  assert.equal(overdueAmount(rentWithDepositPayment, "2026-02-01"), overdueAmount(rent, "2026-02-01"));
+});
 
 console.log("data validation");
 const data = JSON.parse(readFileSync(new URL("../data/tenant.json", import.meta.url)));
 await test("shipped tenant.json is valid", () => assert.deepEqual(validateTenantData(data), []));
+const validData = structuredClone(data);
+validData.profile = profile;
+await test("deposit accepts its default id in allocations", () => {
+  const sample = structuredClone(validData);
+  delete sample.securityDeposit.id;
+  sample.payments.push(pay("SECURITY-DEPOSIT-DEFAULT", "2026-01-01", 24000, "SECURITY-DEPOSIT"));
+  assert.deepEqual(validateTenantData(sample), []);
+});
+await test("validates deposit structure, amount, date and unique id", () => {
+  const bad = structuredClone(validData);
+  bad.securityDeposit = { id: bad.utilityBills[0].id, amountDue: "24000", dueDate: "2026-02-30" };
+  const errs = validateTenantData(bad);
+  assert.ok(errs.some((e) => e.includes("Duplicate charge id")));
+  assert.ok(errs.some((e) => e.includes("amountDue")));
+  assert.ok(errs.some((e) => e.includes("dueDate")));
+  bad.securityDeposit = [];
+  assert.ok(validateTenantData(bad).some((e) => e.includes("securityDeposit' must be an object")));
+});
 await test("detects unknown charge reference", () => {
-  const bad = structuredClone(data); bad.payments[0].allocations[0].chargeId = "RENT-1999-01";
+  const bad = structuredClone(validData); bad.payments[0].allocations[0].chargeId = "RENT-1999-01";
   assert.ok(validateTenantData(bad).some((e) => e.includes("unknown charge")));
 });
 await test("detects over-allocated payment", () => {
-  const bad = structuredClone(data); bad.payments[0].allocations[0].amount = 999999;
+  const bad = structuredClone(validData); bad.payments[0].allocations[0].amount = 999999;
   assert.ok(validateTenantData(bad).some((e) => e.includes("exceed")));
 });
 await test("detects duplicate payment ids and bad receipt paths", () => {
-  const bad = structuredClone(data); bad.payments[1].id = bad.payments[0].id; bad.payments[2].receipt = "../secrets.jpg";
+  const bad = structuredClone(validData); bad.payments[1].id = bad.payments[0].id; bad.payments[2].receipt = "../secrets.jpg";
   const errs = validateTenantData(bad);
   assert.ok(errs.some((e) => e.includes("Duplicate payment"))); assert.ok(errs.some((e) => e.includes("receipt must be")));
 });

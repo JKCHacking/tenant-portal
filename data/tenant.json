@@ -1,334 +1,37 @@
 {
   "profile": {
-    "name": "Juan Dela Cruz",
-    "unit": "Unit 1",
-    "leaseStart": "2026-01-01",
-    "leaseEnd": "2026-12-31",
+    "name": "Ramos",
+    "unit": "Unit 7M",
+    "leaseStart": "2026-11-07",
+    "leaseEnd": "2027-11-07",
     "contractMonths": 12,
-    "monthlyRent": 12000,
-    "rentDueDay": 4
+    "monthlyRent": 17000,
+    "rentDueDay": 6
+  },
+  "securityDeposit": {
+    "id": "SECURITY-DEPOSIT",
+    "amountDue": 17000,
+    "dueDate": "2026-11-07"
   },
   "rentCharges": [],
-  "utilityBills": [
-    {
-      "id": "ELECTRICITY-2026-07",
-      "type": "electricity",
-      "period": "2026-07",
-      "amountDue": 2480.5,
-      "dueDate": "2026-08-15"
-    },
-    {
-      "id": "ELECTRICITY-2026-08",
-      "type": "electricity",
-      "period": "2026-08",
-      "amountDue": 2915.75,
-      "dueDate": "2026-09-15"
-    },
-    {
-      "id": "ELECTRICITY-2026-09",
-      "type": "electricity",
-      "period": "2026-09",
-      "amountDue": 3120.2,
-      "dueDate": "2026-10-15"
-    },
-    {
-      "id": "ELECTRICITY-2026-10",
-      "type": "electricity",
-      "period": "2026-10",
-      "amountDue": 2760.4,
-      "dueDate": "2026-11-15"
-    },
-    {
-      "id": "WATER-2026-07",
-      "type": "water",
-      "period": "2026-07",
-      "amountDue": 420,
-      "dueDate": "2026-08-20"
-    },
-    {
-      "id": "WATER-2026-08",
-      "type": "water",
-      "period": "2026-08",
-      "amountDue": 455.5,
-      "dueDate": "2026-09-20"
-    },
-    {
-      "id": "WATER-2026-09",
-      "type": "water",
-      "period": "2026-09",
-      "amountDue": 430,
-      "dueDate": "2026-10-20"
-    },
-    {
-      "id": "WATER-2026-10",
-      "type": "water",
-      "period": "2026-10",
-      "amountDue": 468.25,
-      "dueDate": "2026-11-20"
-    },
-    {
-      "id": "INTERNET-2026-07",
-      "type": "internet",
-      "period": "2026-07",
-      "amountDue": 1499,
-      "dueDate": "2026-08-10"
-    },
-    {
-      "id": "INTERNET-2026-08",
-      "type": "internet",
-      "period": "2026-08",
-      "amountDue": 1499,
-      "dueDate": "2026-09-10"
-    },
-    {
-      "id": "INTERNET-2026-09",
-      "type": "internet",
-      "period": "2026-09",
-      "amountDue": 1499,
-      "dueDate": "2026-10-10"
-    },
-    {
-      "id": "INTERNET-2026-10",
-      "type": "internet",
-      "period": "2026-10",
-      "amountDue": 1499,
-      "dueDate": "2026-11-10"
-    }
-  ],
+  "utilityBills": [],
   "payments": [
     {
-      "id": "RENT-2026-01-001",
-      "date": "2026-01-03",
-      "amount": 12000,
-      "method": "GCash",
+      "id": "MOVE-IN-2026-11-001",
+      "date": "2026-11-07",
+      "amount": 34000,
+      "method": "BDO",
       "allocations": [
         {
-          "chargeId": "RENT-2026-01",
-          "amount": 12000
+          "chargeId": "RENT-2026-11",
+          "amount": 17000
+        },
+        {
+          "chargeId": "SECURITY-DEPOSIT",
+          "amount": 17000
         }
       ],
       "receipt": null
-    },
-    {
-      "id": "RENT-2026-02-001",
-      "date": "2026-02-04",
-      "amount": 12000,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "RENT-2026-02",
-          "amount": 12000
-        }
-      ],
-      "receipt": null
-    },
-    {
-      "id": "RENT-2026-03-001",
-      "date": "2026-03-03",
-      "amount": 12000,
-      "method": "Cash",
-      "allocations": [
-        {
-          "chargeId": "RENT-2026-03",
-          "amount": 12000
-        }
-      ],
-      "receipt": null
-    },
-    {
-      "id": "RENT-2026-04-001",
-      "date": "2026-04-04",
-      "amount": 12000,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "RENT-2026-04",
-          "amount": 12000
-        }
-      ],
-      "receipt": null
-    },
-    {
-      "id": "RENT-2026-05-001",
-      "date": "2026-05-03",
-      "amount": 12000,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "RENT-2026-05",
-          "amount": 12000
-        }
-      ],
-      "receipt": null
-    },
-    {
-      "id": "RENT-2026-06-001",
-      "date": "2026-06-04",
-      "amount": 12000,
-      "method": "Cash",
-      "allocations": [
-        {
-          "chargeId": "RENT-2026-06",
-          "amount": 12000
-        }
-      ],
-      "receipt": null
-    },
-    {
-      "id": "RENT-2026-07-001",
-      "date": "2026-07-03",
-      "amount": 12000,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "RENT-2026-07",
-          "amount": 12000
-        }
-      ],
-      "receipt": "receipts/rent/RENT-2026-07-001.jpg"
-    },
-    {
-      "id": "RENT-2026-08-001",
-      "date": "2026-08-04",
-      "amount": 12000,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "RENT-2026-08",
-          "amount": 12000
-        }
-      ],
-      "receipt": "receipts/rent/RENT-2026-08-001.jpg"
-    },
-    {
-      "id": "RENT-2026-09-001",
-      "date": "2026-09-03",
-      "amount": 12000,
-      "method": "Cash",
-      "allocations": [
-        {
-          "chargeId": "RENT-2026-09",
-          "amount": 12000
-        }
-      ],
-      "receipt": "receipts/rent/RENT-2026-09-001.png"
-    },
-    {
-      "id": "RENT-2026-10-001",
-      "date": "2026-10-05",
-      "amount": 7000,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "RENT-2026-10",
-          "amount": 7000
-        }
-      ],
-      "receipt": "receipts/rent/RENT-2026-10-001.png"
-    },
-    {
-      "id": "ELECTRICITY-2026-07-001",
-      "date": "2026-08-12",
-      "amount": 2480.5,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "ELECTRICITY-2026-07",
-          "amount": 2480.5
-        }
-      ],
-      "receipt": null
-    },
-    {
-      "id": "ELECTRICITY-2026-08-001",
-      "date": "2026-09-12",
-      "amount": 2915.75,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "ELECTRICITY-2026-08",
-          "amount": 2915.75
-        }
-      ],
-      "receipt": "receipts/utilities/electricity/ELECTRICITY-2026-08-001.jpg"
-    },
-    {
-      "id": "ELECTRICITY-2026-09-001",
-      "date": "2026-10-12",
-      "amount": 3120.2,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "ELECTRICITY-2026-09",
-          "amount": 3120.2
-        }
-      ],
-      "receipt": "receipts/utilities/electricity/ELECTRICITY-2026-09-001.png"
-    },
-    {
-      "id": "WATER-2026-07-001",
-      "date": "2026-08-17",
-      "amount": 420,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "WATER-2026-07",
-          "amount": 420
-        }
-      ],
-      "receipt": null
-    },
-    {
-      "id": "WATER-2026-08-001",
-      "date": "2026-09-17",
-      "amount": 455.5,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "WATER-2026-08",
-          "amount": 455.5
-        }
-      ],
-      "receipt": "receipts/utilities/water/WATER-2026-08-001.jpg"
-    },
-    {
-      "id": "WATER-2026-09-001",
-      "date": "2026-10-17",
-      "amount": 200,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "WATER-2026-09",
-          "amount": 200
-        }
-      ],
-      "receipt": "receipts/utilities/water/WATER-2026-09-001.jpg"
-    },
-    {
-      "id": "INTERNET-2026-07-001",
-      "date": "2026-08-07",
-      "amount": 1499,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "INTERNET-2026-07",
-          "amount": 1499
-        }
-      ],
-      "receipt": null
-    },
-    {
-      "id": "INTERNET-2026-08-001",
-      "date": "2026-09-07",
-      "amount": 1499,
-      "method": "GCash",
-      "allocations": [
-        {
-          "chargeId": "INTERNET-2026-08",
-          "amount": 1499
-        }
-      ],
-      "receipt": "receipts/utilities/internet/INTERNET-2026-08-001.jpg"
     }
   ]
 }

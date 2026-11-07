@@ -5,6 +5,7 @@ import { loadTenantData, DataError } from "./data.js";
 import {
   buildRentCharges,
   buildUtilityCharges,
+  buildSecurityDepositCharge,
   summarizeCharges,
   rentProgress,
   overdueAmount,
@@ -81,6 +82,8 @@ function render(data) {
   const rent = summarizeCharges(buildRentCharges(profile, data.rentCharges), data.payments, today);
   const utilities = summarizeCharges(buildUtilityCharges(data.utilityBills), data.payments, today)
     .sort((a, b) => b.period.localeCompare(a.period) || a.type.localeCompare(b.type));
+  const depositCharge = buildSecurityDepositCharge(data.securityDeposit);
+  const deposit = depositCharge ? summarizeCharges([depositCharge], data.payments, today)[0] : null;
   state.rent = rent;
   state.rentPage = 1;
   state.utilityPage = 1;
@@ -89,6 +92,7 @@ function render(data) {
   $("#welcome").textContent = profile.name ? `Hi, ${profile.name.split(" ")[0]}` : getSessionUser() || "";
   renderLease(profile);
   renderProgress(rentProgress(rent, profile.contractMonths), overdueAmount(rent, today));
+  renderSecurityDeposit(deposit);
   renderRent();
   renderUtilities();
 }
@@ -121,6 +125,21 @@ function renderProgress(p, overdue) {
       <div><dt>Completion</dt><dd>${p.percent}%</dd></div>
       <div><dt>Overdue amount</dt><dd class="${overdue > 0 ? "text-bad" : ""}">${formatPeso(overdue)}</dd></div>
     </dl>`;
+}
+
+function renderSecurityDeposit(deposit) {
+  const section = $("#security-deposit");
+  section.hidden = !deposit;
+  if (!deposit) return;
+
+  $("#security-deposit-info").innerHTML = `
+    <div><dt>Amount due</dt><dd>${formatPeso(deposit.amountDue)}</dd></div>
+    <div><dt>Amount paid</dt><dd>${formatPeso(deposit.amountPaid)}</dd></div>
+    <div><dt>Balance</dt><dd>${formatPeso(deposit.outstanding)}</dd></div>
+    <div><dt>Due date</dt><dd>${formatDate(deposit.dueDate)}</dd></div>
+    <div><dt>Payment date</dt><dd>${formatDate(deposit.paymentDate)}</dd></div>
+    <div><dt>Status</dt><dd>${badge(deposit.status)}</dd></div>
+    <div><dt>Receipt</dt><dd>${receiptCell(deposit.receipts, "Security deposit")}</dd></div>`;
 }
 
 function badge(status) {

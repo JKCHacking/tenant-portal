@@ -6,9 +6,9 @@
 
 // Generate your own values with:  node tools/generate-credentials.mjs
 const AUTH_CONFIG = Object.freeze({
-  username: "tenant",
-  salt: "F2gHfTCBYm3KYwZdIGzt0A==",
-  hash: "gOubXBzo0TKu3vKk57NSKaxyeLeWLKv0qkY5MebCc18=",
+  username: "tenant7m",
+  salt: "ryXVD7Id0pnn9xczO0W6Vg==",
+  hash: "0GQLjp09IPRBi5GgGz/t5mY+0H7/remPbY8WKPAypbg=",
   iterations: 600000,
 });
 

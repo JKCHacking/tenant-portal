@@ -13,6 +13,14 @@ import readline from "node:readline";
 
 const ITERATIONS = 600000;
 
+if (
+  !process.stdin.isTTY &&
+  (process.env.TP_USERNAME === undefined || process.env.TP_PASSWORD === undefined)
+) {
+  console.error("Interactive input is unavailable. Run this command in a terminal or set both TP_USERNAME and TP_PASSWORD.");
+  process.exit(1);
+}
+
 function ask(question, { hidden = false } = {}) {
   return new Promise((resolve) => {
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout, terminal: true });
