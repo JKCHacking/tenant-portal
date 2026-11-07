@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Tenant Portal">
+  <rect width="48" height="48" rx="11" fill="#2354c7"/>
+  <path d="M10 23.5 24 12l14 11.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M15 22v14h18V22" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="21" y="27" width="6" height="9" rx="1" fill="#fff"/>
+</svg>

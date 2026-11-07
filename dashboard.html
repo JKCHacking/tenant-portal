@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Tenant Portal – Dashboard</title>
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body class="dashboard-page is-locked">
+  <!--
+    No private data lives in this HTML. All content is rendered by dashboard.js
+    only after the auth guard passes; unauthenticated visitors are redirected.
+  -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="assets/images/logo.svg" alt="" width="28" height="28">
+        <span>Tenant Portal</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="muted" id="welcome"></span>
+        <button type="button" class="btn btn-ghost" id="logout-btn">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="app">
+    <p class="state-box" id="loading" role="status">Loading your records…</p>
+
+    <div class="state-box state-error" id="error" role="alert" hidden>
+      <p id="error-message"></p>
+      <button type="button" class="btn btn-primary" id="retry-btn">Try again</button>
+    </div>
+
+    <div id="content" hidden>
+      <section class="card" aria-labelledby="lease-title">
+        <h2 id="lease-title">Lease information</h2>
+        <dl class="info-grid" id="lease-info"></dl>
+      </section>
+
+      <section class="card" aria-labelledby="progress-title">
+        <h2 id="progress-title">Rental payment progress</h2>
+        <div id="progress"></div>
+      </section>
+
+      <section class="card" aria-labelledby="rent-title">
+        <h2 id="rent-title">Rent payment history</h2>
+        <div id="rent-history"></div>
+      </section>
+
+      <section class="card" aria-labelledby="utility-title">
+        <div class="card-head">
+          <h2 id="utility-title">Utility bills</h2>
+          <div class="filter" id="utility-filter" role="group" aria-label="Filter by utility type">
+            <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="chip" data-filter="electricity" aria-pressed="false">Electricity</button>
+            <button type="button" class="chip" data-filter="water" aria-pressed="false">Water</button>
+            <button type="button" class="chip" data-filter="internet" aria-pressed="false">Internet</button>
+          </div>
+        </div>
+        <div id="utility-history"></div>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="receipt-modal" aria-labelledby="receipt-title">
+    <div class="modal-head">
+      <h3 id="receipt-title">Receipt</h3>
+      <button type="button" class="btn btn-ghost" id="receipt-close" aria-label="Close receipt">Close</button>
+    </div>
+    <div class="modal-body">
+      <p class="muted" id="receipt-loading">Loading receipt…</p>
+      <p class="receipt-error" id="receipt-error" role="alert" hidden>
+        This receipt image could not be loaded. It may not have been uploaded yet — please contact your landlord.
+      </p>
+      <img id="receipt-img" alt="Payment receipt" hidden>
+    </div>
+    <div class="modal-foot" id="receipt-actions" hidden>
+      <a class="btn btn-ghost" id="receipt-open" target="_blank" rel="noopener">Open original</a>
+      <a class="btn btn-primary" id="receipt-download" download>Download</a>
+    </div>
+  </dialog>
+
+  <script type="module" src="assets/js/dashboard.js"></script>
+</body>
+</html>

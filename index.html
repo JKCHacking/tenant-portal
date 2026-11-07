@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Tenant Portal – Sign in</title>
+  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <img class="logo" src="assets/images/logo.svg" alt="" width="48" height="48">
+    <h1>Tenant Portal</h1>
+    <p class="muted">Sign in to view your lease and payments.</p>
+
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" autocomplete="username"
+               autocapitalize="none" spellcheck="false" required aria-describedby="username-error">
+        <p class="field-error" id="username-error" hidden></p>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="input-group">
+          <input id="password" name="password" type="password" autocomplete="current-password"
+                 required aria-describedby="password-error">
+          <button type="button" id="toggle-password" class="btn btn-ghost"
+                  aria-label="Show password" aria-pressed="false">Show</button>
+        </div>
+        <p class="field-error" id="password-error" hidden></p>
+      </div>
+
+      <p class="form-error" id="form-error" role="alert" hidden></p>
+
+      <button class="btn btn-primary btn-block" id="login-btn" type="submit">Sign in</button>
+    </form>
+
+    <!-- REMOVE this hint before using real credentials. -->
+    <p class="demo-hint" id="demo-hint">Demo login: <strong>tenant</strong> / <strong>demo1234</strong></p>
+  </main>
+
+  <script type="module">
+    import { initLoginPage } from "./assets/js/auth.js";
+    initLoginPage();
+  </script>
+</body>
+</html>
