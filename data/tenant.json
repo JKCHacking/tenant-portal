@@ -14,7 +14,85 @@
     "dueDate": "2026-11-07"
   },
   "rentCharges": [],
-  "utilityBills": [],
+  "utilityBills": [
+    {
+      "id": "INTERNET-2026-12",
+      "type": "internet",
+      "period": "2026-12",
+      "amountDue": 1299,
+      "dueDate": "2026-12-08"
+    },
+    {
+      "id": "INTERNET-2027-01",
+      "type": "internet",
+      "period": "2027-01",
+      "amountDue": 1299,
+      "dueDate": "2027-01-08"
+    },
+    {
+      "id": "INTERNET-2027-02",
+      "type": "internet",
+      "period": "2027-02",
+      "amountDue": 1299,
+      "dueDate": "2027-02-08"
+    },
+    {
+      "id": "INTERNET-2027-03",
+      "type": "internet",
+      "period": "2027-03",
+      "amountDue": 1299,
+      "dueDate": "2027-03-08"
+    },
+    {
+      "id": "INTERNET-2027-04",
+      "type": "internet",
+      "period": "2027-04",
+      "amountDue": 1299,
+      "dueDate": "2027-04-08"
+    },
+    {
+      "id": "INTERNET-2027-05",
+      "type": "internet",
+      "period": "2027-05",
+      "amountDue": 1299,
+      "dueDate": "2027-05-08"
+    },
+    {
+      "id": "INTERNET-2027-06",
+      "type": "internet",
+      "period": "2027-06",
+      "amountDue": 1299,
+      "dueDate": "2027-06-08"
+    },
+    {
+      "id": "INTERNET-2027-07",
+      "type": "internet",
+      "period": "2027-07",
+      "amountDue": 1299,
+      "dueDate": "2027-07-08"
+    },
+    {
+      "id": "INTERNET-2027-08",
+      "type": "internet",
+      "period": "2027-08",
+      "amountDue": 1299,
+      "dueDate": "2027-08-08"
+    },
+    {
+      "id": "INTERNET-2027-09",
+      "type": "internet",
+      "period": "2027-09",
+      "amountDue": 1299,
+      "dueDate": "2027-09-08"
+    },
+    {
+      "id": "INTERNET-2027-10",
+      "type": "internet",
+      "period": "2027-10",
+      "amountDue": 1299,
+      "dueDate": "2027-10-08"
+    }
+  ],
   "payments": [
     {
       "id": "MOVE-IN-2026-11-001",

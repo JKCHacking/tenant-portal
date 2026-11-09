@@ -81,7 +81,7 @@ function render(data) {
 
   const rent = summarizeCharges(buildRentCharges(profile, data.rentCharges), data.payments, today);
   const utilities = summarizeCharges(buildUtilityCharges(data.utilityBills), data.payments, today)
-    .sort((a, b) => b.period.localeCompare(a.period) || a.type.localeCompare(b.type));
+    .sort((a, b) => a.dueDate.localeCompare(b.dueDate) || a.type.localeCompare(b.type));
   const depositCharge = buildSecurityDepositCharge(data.securityDeposit);
   const deposit = depositCharge ? summarizeCharges([depositCharge], data.payments, today)[0] : null;
   state.rent = rent;
