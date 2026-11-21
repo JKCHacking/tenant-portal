@@ -110,6 +110,19 @@
         }
       ],
       "receipt": null
+    },
+    {
+      "id": "RENT-2026-12-001",
+      "date": "2026-11-19",
+      "amount": 17000,
+      "method": "BDO",
+      "allocations": [
+        {
+          "chargeId": "RENT-2026-12",
+          "amount": 17000
+        }
+      ],
+      "receipt": null
     }
   ]
 }
